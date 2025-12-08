@@ -1,22 +1,26 @@
 CATPPUCCIN = {
-    "morning": {
-        "first": "#1e66f5",
-        "second": "#7287fd",
-        "third": "#d20f39",
+    "morning": {  # Mocha-ish (boldest)
+        "rosewater": "#dc8a78",
+        "flamingo": "#dd7878",
+        "pink": "#ea76cb",
+        "mauve": "#8839ef",
     },
-    "afternoon": {
-        "first": "#8caaee",
-        "second": "#babbf1",
-        "third": "#e78284",
+    "afternoon": {  # Macchiato-ish
+        "rosewater": "#f2d5cf",
+        "flamingo": "#eebebe",
+        "pink": "#f4b8e4",
+        "mauve": "#ca9ee6",
     },
-    "evening": {
-        "first": "#8aadf4",
-        "second": "#b7bdf8",
-        "third": "#ed8796",
+    "evening": {  # Frappe-ish
+        "rosewater": "#f4dbd6",
+        "flamingo": "#f0c6c6",
+        "pink": "#f5bde6",
+        "mauve": "#c6a0f6",
     },
-    "night": {
-        "first": "#89b4fa",
-        "second": "#b4befe",
-        "third": "#f38ba8",
+    "night": {  # Latte-ish (lightest)
+        "rosewater": "#f5e0dc",
+        "flamingo": "#f2cdcd",
+        "pink": "#f5c2e7",
+        "mauve": "#cba6f7",
     },
 }

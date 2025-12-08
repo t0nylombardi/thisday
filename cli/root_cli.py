@@ -11,3 +11,4 @@ def run_cli():
     greeting = generate_greeting("T0ny")
 
     console.print(banner(greeting, time))
+    console.print("The rest of your Rich script")
