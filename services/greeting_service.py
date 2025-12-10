@@ -5,4 +5,4 @@ def generate_greeting(name: str = "friend") -> str:
     time = get_time_of_day()
     time_cap = time.capitalize()
 
-    return f"Good {time_cap}\n{name}!"
+    return f"\n\nGood {time_cap}\n{name}!\n\n"
