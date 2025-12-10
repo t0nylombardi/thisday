@@ -10,8 +10,6 @@ def banner(text: str, time_of_day: str) -> RichFiglet:
         text,
         font="ansi_shadow",
         colors=[value for value in theme.values()],
-        animation="gradient_down",
-        horizontal=True,
-        fps=8,
+        horizontal=False,
         remove_blank_lines=True,
     )
