@@ -1,7 +1,13 @@
+from email.header import Header
+import select
+import sys
+import termios
+import tty
+from time import sleep
 from rich.console import Console
 from cli.layout import build_dashboard
+from rich.live import Live
 from cli.panels import (
-    greeting_panel,
     weather_panel,
     news_panel,
     history_panel,
@@ -19,33 +25,39 @@ from core.time_of_day import get_time_of_day
 console = Console()
 
 
+def read_key():
+    fd = sys.stdin.fileno()
+    old = termios.tcgetattr(fd)
+    try:
+        tty.setraw(fd)
+        return sys.stdin.read(1)
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old)
+
+
 def run_cli():
-    # Fetch all service data FIRST
+    # Fetch service data
     time_of_day = get_time_of_day()
     greeting_text = generate_header_greeting("T0ny")
     weather = WeatherService().current_weather()
     news_items = NewsService().latest_headlines()
     history_items = HistoryService().today()
-    calendar_items = ["12pm Lunch", "3pm Guitar", "7pm Relax"]  # placeholder
+    calendar_items = ["12pm Lunch", "3pm Guitar", "7pm Relax"]
 
-    # Build panels using MODELS, not raw calls
-    greeting_p = greeting_panel(greeting_text, time_of_day)
-    weather_p = weather_panel(weather)
-    news_p = news_panel(news_items)
-    history_p = history_panel(history_items)
-    calendar_p = calendar_panel(calendar_items)
-    log_p = log_panel()
-    footer_p = footer_panel()
-
-    # Build dashboard
     layout = build_dashboard(
-        greeting_p,
-        weather_p,
-        news_p,
-        history_p,
-        calendar_p,
-        log_p,
-        footer_p,
+        Header(),
+        weather_panel(weather),
+        news_panel(news_items),
+        history_panel(history_items),
+        calendar_panel(calendar_items),
+        log_panel(),
+        footer_panel(),
     )
 
-    console.print(layout)
+    with Live(layout, refresh_per_second=10, screen=True):
+        while True:
+            sleep(0.1)
+            if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
+                key = read_key()
+                if key.lower() == "q":
+                    break
