@@ -11,7 +11,7 @@ def make_layout() -> Layout:
     layout.split(
         Layout(name="header", size=3),
         Layout(name="main", ratio=1),
-        Layout(name="log", size=5),
+        # Layout(name="log", size=5),
         Layout(name="footer", size=3),
     )
 
@@ -37,7 +37,7 @@ def build_dashboard(
     news_panel,
     history_panel,
     calendar_panel,
-    log_panel,
+    # log_panel,
     footer_panel,
 ):
     """Attach panels to the appropriate layout regions."""
@@ -48,7 +48,7 @@ def build_dashboard(
     layout["news"].update(news_panel)
     layout["history"].update(history_panel)
     layout["calendar"].update(calendar_panel)
-    layout["log"].update(log_panel)
+    # layout["log"].update(log_panel)
     layout["footer"].update(footer_panel)
 
     return layout

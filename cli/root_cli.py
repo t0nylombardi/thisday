@@ -12,7 +12,7 @@ from cli.panels import (
     news_panel,
     history_panel,
     calendar_panel,
-    log_panel,
+    # log_panel,
     footer_panel,
 )
 
@@ -50,7 +50,7 @@ def run_cli():
         news_panel(news_items),
         history_panel(history_items),
         calendar_panel(calendar_items),
-        log_panel(),
+        # log_panel(),
         footer_panel(),
     )
 

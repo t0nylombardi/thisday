@@ -25,7 +25,7 @@ def weather_panel(weather):
     if weather is None:
         return Panel("Weather unavailable", title="Weather", border_style="cyan")
 
-    body = f"{weather.icon}  {weather.text}\n" f"{weather.temperature}°F"
+    body = f"{weather.icon}  {weather.text} " f"{weather.temperature}°F"
     return Panel(body, title="Weather", border_style="cyan", padding=(0, 1))
 
 
@@ -50,7 +50,7 @@ def history_panel(events):
 def calendar_panel(events):
     """CalendarService returns a list of agenda strings."""
     text = "\n".join(events) if events else "No events today"
-    return text
+    return Panel(text, title="Today's Calendar", border_style="blue", padding=(0, 1))
 
 
 def log_panel(message="Press Q to exit • Press R to refresh"):
