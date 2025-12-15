@@ -6,7 +6,8 @@ load_dotenv()
 
 
 class Weather:
-    def __init__(self, temperature, text, icon, location):
+    def __init__(self, date, temperature, text, icon, location):
+        self.date = date
         self.temperature = temperature
         self.text = text
         self.icon = icon

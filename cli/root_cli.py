@@ -39,14 +39,15 @@ def run_cli():
     # Fetch service data
     time_of_day = get_time_of_day()
     greeting_text = generate_header_greeting("T0ny")
-    weather = WeatherService().current_weather()
+    current = WeatherService().current_weather()
+    forecast = WeatherService().forecast()
     news_items = NewsService().latest_headlines()
     history_items = HistoryService().today()
     calendar_items = ["12pm Lunch", "3pm Guitar", "7pm Relax"]
 
     layout = build_dashboard(
         Header(),
-        weather_panel(weather),
+        weather_panel(current, forecast),
         news_panel(news_items),
         history_panel(history_items),
         calendar_panel(calendar_items),
@@ -54,10 +55,14 @@ def run_cli():
         footer_panel(),
     )
 
-    with Live(layout, refresh_per_second=10, screen=True):
+    with Live(layout, refresh_per_second=30, screen=True):
         while True:
-            sleep(0.1)
-            if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
+            input, _, _ = select.select([sys.stdin], [], [], 0.2)
+            if input:
                 key = read_key()
-                if key.lower() == "q":
+                print(f"Key pressed: {key}")
+                if key.lower() == "q" or key == "\x03":
                     break
+                else:
+                    console.log(f"Pressed key: {key}")
+            sleep(0.1)

@@ -20,13 +20,21 @@ class Header:
         return Panel(grid, style="white on blue")
 
 
-def weather_panel(weather):
+def weather_panel(current, forecast) -> Panel:
     """WeatherService returns a Weather model."""
-    if weather is None:
+    if current is None:
         return Panel("Weather unavailable", title="Weather", border_style="cyan")
 
-    body = f"{weather.icon}  {weather.text} " f"{weather.temperature}°F"
-    return Panel(body, title="Weather", border_style="cyan", padding=(0, 1))
+    weather_table = Table.grid(expand=True)
+    body = f"{current.icon}  {current.text} " f"{current.temperature}°F\n"
+
+    weather_table.add_row(body)
+    weather_table.add_row(Text("Forecast:", style="bold underline"))
+    if forecast:
+        for day in forecast:
+            weather_table.add_row(f"{day.date}: {day.text} {day.temperature}°F")
+
+    return Panel(weather_table, title="Weather", border_style="cyan", padding=(0, 1))
 
 
 def news_panel(news_items: list[NewsItem]) -> Panel:
