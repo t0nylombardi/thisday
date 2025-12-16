@@ -23,9 +23,9 @@ def make_layout() -> Layout:
     layout["body"].split(Layout(name="calendar", ratio=1))
 
     layout["left"].split(
-        Layout(name="weather"),
+        Layout(name="weather", size=8),
         Layout(name="news"),
-        Layout(name="history"),
+        Layout(name="history", size=5),
     )
 
     return layout

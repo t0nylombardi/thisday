@@ -33,7 +33,9 @@ def weather_panel(current, forecast) -> Panel:
         for day in forecast:
             weather_table.add_row(f"{day.date}: {day.text} {day.temperature}°F")
 
-    return Panel(weather_table, title="Weather", border_style="cyan", padding=(0, 1))
+    return Panel(
+        weather_table, title="Weather", border_style="cyan", padding=(0, 1), expand=True
+    )
 
 
 def news_panel(news_items) -> Panel:
@@ -45,7 +47,9 @@ def news_panel(news_items) -> Panel:
     for item in news_items[:5]:
         news_table.add_row(item.formatted())
 
-    return Panel(news_table, title="News", border_style="magenta", padding=(0, 1))
+    return Panel(
+        news_table, title="News", border_style="magenta", padding=(0, 1), expand=True
+    )
 
 
 def history_panel(events):
