@@ -39,16 +39,22 @@ def weather_panel(current, forecast) -> Panel:
 
 
 def news_panel(news_items) -> Panel:
-    """NewsService returns a list of NewsItem models."""
     if not news_items:
         return Panel("No news available", title="News", border_style="magenta")
 
-    news_table = Table.grid(expand=True)
+    table = Table.grid(expand=True)
+    table.add_column()
+
     for item in news_items[:5]:
-        news_table.add_row(item.formatted())
+        bullet = "•"
+        text = Text.assemble(
+            (bullet + " ", "bold magenta"),
+            (item.title, f"link {item.url} underline white"),
+        )
+        table.add_row(text)
 
     return Panel(
-        news_table, title="News", border_style="magenta", padding=(0, 1), expand=True
+        table, title="News", border_style="magenta", padding=(0, 1), expand=True
     )
 
 
