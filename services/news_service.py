@@ -1,25 +1,39 @@
+from providers.news_provider import NewsProvider
+from models.news import News
+
+
 class NewsService:
-    def __init__(self):
-        pass
+    def __init__(self, provider=None):
+        self.provider = provider or NewsProvider()
 
-    def latest_headlines(self, category=None):
-        return [
-            NewsItem(title="Breaking News: Something Happened!"),
-            NewsItem(title="Latest Updates: More News Here"),
-            NewsItem(title="In Case You Missed It: News Recap"),
-        ]  # Returns a list of NewsItem models
+    def get_top_headlines(self):
+        data = self.provider.fetch()
 
-    def news_item_details(self, item_id):
-        return NewsItem(
-            title="Detailed News Item",
-            content="This is the full content of the news item.",
-        )  # Returns a NewsItem model with full details
+        if data is None:
+            return []
 
+        if not isinstance(data, dict):
+            return []
 
-class NewsItem:
-    def __init__(self, title, content=""):
-        self.title = title
-        self.content = content
+        if data.get("status") != "ok":
+            return []
 
-    def __repr__(self):
-        return f"NewsItem(title={self.title})"
+        articles = data.get("articles", [])
+        news_list = []
+
+        for article in articles:
+            title = (article.get("title") or "").strip()
+            description = (article.get("description") or "").strip()
+            url = (article.get("url") or "").strip()
+            source = (article.get("source", {}).get("name") or "").strip()
+
+            news_list.append(
+                News(
+                    title=title,
+                    description=description,
+                    url=url,
+                    source=source,
+                )
+            )
+
+        return news_list

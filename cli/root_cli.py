@@ -16,6 +16,13 @@ from cli.panels import (
     footer_panel,
 )
 
+from dotenv import load_dotenv
+import os
+
+# Load .env from project root
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+load_dotenv(os.path.join(BASE_DIR, ".env"))
+
 from services.greeting_service import generate_header_greeting
 from services.weather_service import WeatherService
 from services.news_service import NewsService
@@ -37,11 +44,9 @@ def read_key():
 
 def run_cli():
     # Fetch service data
-    time_of_day = get_time_of_day()
-    greeting_text = generate_header_greeting("T0ny")
     current = WeatherService().current_weather()
     forecast = WeatherService().forecast()
-    news_items = NewsService().latest_headlines()
+    news_items = NewsService().get_top_headlines()
     history_items = HistoryService().today()
     calendar_items = ["12pm Lunch", "3pm Guitar", "7pm Relax"]
 

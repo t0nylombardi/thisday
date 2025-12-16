@@ -3,7 +3,6 @@ from rich.panel import Panel
 from rich.align import Align
 from rich.text import Text
 from rich.table import Table
-from services.news_service import NewsItem
 
 
 class Header:
@@ -37,13 +36,16 @@ def weather_panel(current, forecast) -> Panel:
     return Panel(weather_table, title="Weather", border_style="cyan", padding=(0, 1))
 
 
-def news_panel(news_items: list[NewsItem]) -> Panel:
+def news_panel(news_items) -> Panel:
     """NewsService returns a list of NewsItem models."""
     if not news_items:
-        return Panel("No news", title="News", border_style="magenta", padding=0)
+        return Panel("No news available", title="News", border_style="magenta")
 
-    text = "\n".join(f"• {item.title}" for item in news_items[:5])
-    return Panel(text, title="News", border_style="magenta", padding=(0, 1))
+    news_table = Table.grid(expand=True)
+    for item in news_items[:5]:
+        news_table.add_row(item.formatted())
+
+    return Panel(news_table, title="News", border_style="magenta", padding=(0, 1))
 
 
 def history_panel(events):

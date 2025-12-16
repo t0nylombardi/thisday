@@ -17,7 +17,7 @@ def make_layout() -> Layout:
 
     layout["main"].split_row(
         Layout(name="left"),
-        Layout(name="body", ratio=2, minimum_size=40),
+        Layout(name="body", ratio=1, minimum_size=20),
     )
 
     layout["body"].split(Layout(name="calendar", ratio=1))
