@@ -7,13 +7,15 @@ authors = [
 ]
 license = {text = "MIT"}
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.13,<4.0"
 dependencies = [
     "pendulum (>=3.1.0,<4.0.0)",
     "rich-pyfiglet (>=1.0.0,<2.0.0)",
     "requests (>=2.32.5,<3.0.0)",
     "python-dotenv (>=1.2.1,<2.0.0)",
-    "emoji (>=2.15.0,<3.0.0)"
+    "emoji (>=2.15.0,<3.0.0)",
+    "textual (>=6.10.0,<7.0.0)",
+    "asyncio (>=4.0.0,<5.0.0)"
 ]
 
 [tool.poetry]
