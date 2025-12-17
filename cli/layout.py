@@ -23,7 +23,7 @@ def make_layout() -> Layout:
     layout["body"].split(Layout(name="calendar", ratio=1))
 
     layout["left"].split(
-        Layout(name="weather", size=8),
+        Layout(name="weather", size=10),
         Layout(name="news"),
         Layout(name="history", size=5),
     )

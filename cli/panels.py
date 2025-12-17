@@ -1,3 +1,4 @@
+from core.time_of_day import get_time_of_day
 from datetime import datetime
 from rich.panel import Panel
 from rich.align import Align
@@ -10,13 +11,12 @@ class Header:
 
     def __rich__(self) -> Panel:
         grid = Table.grid(expand=True)
-        grid.add_column(justify="center", ratio=1)
+        grid.add_column(justify="left", ratio=1)
         grid.add_column(justify="right")
         grid.add_row(
-            "[b]Rich[/b] Layout application",
-            datetime.now().ctime().replace(":", "[blink]:[/]"),
+            f"Good {get_time_of_day()} T0ny!", datetime.now().strftime("%I:%M:%S")
         )
-        return Panel(grid, style="white on blue")
+        return Panel(grid, style="white", padding=(0, 1))
 
 
 def weather_panel(current, forecast) -> Panel:
@@ -28,10 +28,10 @@ def weather_panel(current, forecast) -> Panel:
     body = f"{current.icon}  {current.text} " f"{current.temperature}°F\n"
 
     weather_table.add_row(body)
-    weather_table.add_row(Text("Forecast:", style="bold underline"))
+    weather_table.add_row(Text("Forecast:", style="bold", justify="left", end=""))
     if forecast:
         for day in forecast:
-            weather_table.add_row(f"{day.date}: {day.text} {day.temperature}°F")
+            weather_table.add_row(f"{day.format_forecast()}")
 
     return Panel(
         weather_table, title="Weather", border_style="cyan", padding=(0, 1), expand=True
@@ -49,7 +49,7 @@ def news_panel(news_items) -> Panel:
         bullet = "•"
         text = Text.assemble(
             (bullet + " ", "bold magenta"),
-            (item.title, f"link {item.url} underline white"),
+            (item.title, f"link {item.url} underline\n"),
         )
         table.add_row(text)
 
